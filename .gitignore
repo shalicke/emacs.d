@@ -4,4 +4,4 @@ elpa/
 autosave/
 *.dat
 *.eld
-places/
+places
