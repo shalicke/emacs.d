@@ -21,12 +21,19 @@
 (auto-compile-on-save-mode 1)
 
 (add-to-list 'load-path "~/.emacs.d/")
+(add-to-list 'load-path "~/.emacs.d/lib")
+
+;; set the default directory for emacs to our home
+;; TODO see if this gets overridden
+(setq default-directory "~/")
 
 (defvar local-package-list '(clojure-mode
                               better-defaults
                               recentf
                               flx
                               flx-ido
+                              hexrgb
+                              popup
 			      clojure-test-mode
 			      yasnippets
 			      clojure-snippets
@@ -42,30 +49,35 @@
 ;; defaults / basic settings like encoding, bell, etc.
 (load "defaults")
 
-;; font loading/setting.
-(load "fonts")
+;; functions.
+(load "functions")
+
+;; ido-mode and flx-ido
+(load "ido-config")
+
+;; auto-complete
+(load "ac-config")
+
+;; snippets
+(load "snippet-config")
 
 ;; nrepl and ac-nrepl
 (load "nrepl-config")
 
 ;; projectile
-(projectile-global-mode)
-
-;; functions.
-(load "functions")
+(load "projectile-config")
 
 ;; OS X
 (load "osx")
+
+;; Popwin
+(load "pw-config")
 
 ;; smartparens config and bindings.
 (load "sp-bindings")
 
 ;; key bindings
 (load "bindings")
-
-
-;; added dynamically... ??
-;; theme system?
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -78,4 +90,10 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+)
+
+;; font loading/setting.
+(load "fonts")
+
+;; cosmetics
+(load "cosmetic")

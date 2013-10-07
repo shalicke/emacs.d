@@ -1,7 +1,8 @@
 *~
-*#*#
+.#*
 elpa/
 autosave/
+tmp/
 *.dat
 *.eld
 places

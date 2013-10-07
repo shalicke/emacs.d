@@ -1,6 +1,11 @@
-;; defaults / basic stuff.
+;; defaults / basic stuff, and built-in functionality.
+;; again, lots of things cribbed from emacs-live or slightly modified.
 
-(load "vars")
+(setq base-dir "~/.emacs.d/")
+(setq tmp-dir (concat base-dir "tmp/"))
+(setq lib-dir (concat base-dir "lib/"))
+(setq snippets-dir (concat base-dir "snippets/"))
+(setq autosave-dir (concat tmp-dir "autosave/"))
 
 ;; create required directories for things.
 ;; tmp
@@ -17,59 +22,57 @@
 
 ;; replace yes/no with y/n.
 (fset 'yes-or-no-p 'y-or-n-p)
-(setq confirm-nonexistent-file-or-buffer nil)
 
-;; make buffer names unique by path using forward scheme
-(require 'uniquify)
-(setq uniquify-buffer-name-style 'forward)
-
-;; snippets everywhere.
-(require 'yasnippet)
-(yas-global-mode 1)
-
-;; auto-complete everything.
-(load "ac-config")
-
-;; tooltips in echo area
-(tooltip-mode -1)
-(setq tooltip-use-echo-area t)
-
-;; load ido customizations
-(load "ido")
-
-;; recent files
-(require 'recentf)
-(recentf-mode t)
-(setq recentf-max-saved-items 50)
-
-;; Disable the bell.
-(setq ring-bell-function 'ignore)
-
-;; get rid of the toolbar.
-(tool-bar-mode -1)
-
-;; and the splash screen
-(setq inhibit-startup-message t
-      inhibit-startup-echo-area-message t)
-
-;; but enable the menubar.
-(menu-bar-mode t)
-
-;; because reasons.
-;; i have caps lock bound to control everywhere.
-(setq mac-command-modifier 'meta)
-(setq mac-option-modifier 'super)
+;; default startup and setting of variables.
+(setq initial-major-mode 'lisp-interaction-mode
+      ;; utf-8 (see other coding vars set elsewhere)
+      locale-coding-system 'utf-8
+      utf-translate-cjk-mode nil
+      ;; pending input does not pre-empt redraw
+      redisplay-dont-pause t
+      ;; disable the bell.
+      ring-bell-function 'ignore
+      ;; display column in modeline.
+      column-number-mode t
+      ;; echo control keystrokes
+      echo-keystrokes 0.02
+      ;; no startup message / splash.
+      inhibit-startup-message t
+      inhibit-startup-echo-area-message t
+      ;; transient mark mode, i.e. 'modern' mark
+      transient-mark-mode t
+      ;; enable shift-select.
+      ;; this is disabled in emacs-live.
+      shift-select-mode t
+      ;; add a single newline at the end of a doc.
+      require-final-newline t
+      ;; turns wrapping on in horizontally split windows.
+      truncate-partial-width-windows nil
+      ;; actually unlink, don't move to Trash, etc.
+      delete-by-moving-to-trash nil
+      ;; don't ask me if i want to create a buffer.
+      confirm-nonexistent-file-or-buffer nil
+      ;; highlight matching parens immediately
+      show-paren-delay 0
+      ;; use the X clipboard -- problematic!
+      ;; x-select-enable-clipboard t
+      ;; highlight search/replace
+      query-replace-highlight t
+      ;; compilation mode stuff
+      compilation-auto-jump-to-first-error t
+      next-error-highlight t
+      next-error-highlight-no-select t
+      ;; command is M, option is s
+      mac-command-modifier 'meta
+      mac-option-modifier 'super)
 
 ;; utf-8 everywhere, disable CJK.
 (set-language-environment 'utf-8)
 (set-default-coding-systems 'utf-8)
-(setq locale-coding-system 'utf-8)
 (set-terminal-coding-system 'utf-8)
 (set-keyboard-coding-system 'utf-8)
 (set-selection-coding-system 'utf-8)
 (prefer-coding-system 'utf-8)
-
-(setq utf-translate-cjk-mode nil)
 
 ;; don't use tabs, spaces only.
 (set-default 'indent-tabs-mode nil)
@@ -77,36 +80,7 @@
 ;; edit compressed files
 (auto-compression-mode t)
 
-;; show matching parens, no delay.
+;; show matching parens.
 (show-paren-mode 1)
-(setq show-paren-delay 0)
 
-;; emacs uses the clipboard
-(setq x-select-enable-clipboard t)
-
-;; mostly cosmetics from here...
-;; trim whitespace.
-(defun live-cleanup-whitespace ()
-  (let ((whitespace-style '(trailing empty)) )
-    (whitespace-cleanup)))
-(add-hook 'before-save-hook 'live-cleanup-whitespace)
-
-;; fontify all the things
-(setq font-lock-maximum-decoration t)
-
-;; Line-wrapping at 78, not 72
-(set-default 'fill-column 78)
-
-;; get rid of clutter
-(if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
-(if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
-;; (if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
-
-;; make fringe smaller
-(if (fboundp 'fringe-mode)
-    (fringe-mode 4))
-
-;; 24+ themes
-(load-theme 'solarized-dark)
-
-;; rainbows!
+(load "extra-defaults")

@@ -3,10 +3,10 @@
 
 ;; thanks to emacs-live for this
 
+;; unsure what effect this actually has.
 (setq default-input-method "MacOSX")
 
 ;; Make cut and paste work with the OS X clipboard
-
 (defun live-copy-from-osx ()
   (shell-command-to-string "pbpaste"))
 
@@ -16,20 +16,18 @@
       (process-send-string proc text)
       (process-send-eof proc))))
 
- (when (not window-system)
-   (setq interprogram-cut-function 'live-paste-to-osx)
-   (setq interprogram-paste-function 'live-copy-from-osx))
+(when (not window-system)
+  (setq interprogram-cut-function 'live-paste-to-osx)
+  (setq interprogram-paste-function 'live-copy-from-osx))
+
+;; still kills yank on unknown pasteboard content... why
 
 ;; Work around a bug on OS X where system-name is a fully qualified
 ;; domain name
 (setq system-name (car (split-string system-name "\\.")))
 
 ;; Ensure the exec-path honours the shell PATH
-
-;; TODO: FIX
-;;(live-add-pack-lib "exec-path-from-shell")
-;;(require 'exec-path-from-shell)
-;;(exec-path-from-shell-initialize)
+(require 'exec-path-from-shell)
 
 ;; Ignore .DS_Store files with ido mode
-;; (add-to-list 'ido-ignore-files "\\.DS_Store")
+(add-to-list 'ido-ignore-files "\\.DS_Store")
