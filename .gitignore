@@ -1,8 +1,11 @@
 *~
 .#*
+\#*
 elpa/
 autosave/
 tmp/
 *.dat
 *.eld
 places
+*.elc
+vizier/user/*

@@ -1,11 +1,11 @@
 ;; defaults / basic stuff, and built-in functionality.
 ;; again, lots of things cribbed from emacs-live or slightly modified.
 
-(setq base-dir "~/.emacs.d/")
-(setq tmp-dir (concat base-dir "tmp/"))
-(setq lib-dir (concat base-dir "lib/"))
-(setq snippets-dir (concat base-dir "snippets/"))
-(setq autosave-dir (concat tmp-dir "autosave/"))
+(setq vizier-base-dir "~/.emacs.d/")
+(setq vizier-tmp-dir (concat vizier-base-dir "tmp/"))
+(setq vizier-lib-dir (concat vizier-base-dir "lib/"))
+(setq vizier-snippets-dir (concat vizier-base-dir "snippets/"))
+(setq vizier-autosave-dir (concat vizier-tmp-dir "autosave/"))
 
 ;; create required directories for things.
 ;; tmp
@@ -13,12 +13,15 @@
 ;; snippets
 ;; lib
 
+;; don't use tabs, spaces only.
+(set-default 'indent-tabs-mode nil)
+
 ;; the auto-save and backup directories.
 (setq backup-directory-alist
-      `((".*" . ,autosave-dir)))
+      `((".*" . ,vizier-autosave-dir)))
 
 (setq auto-save-file-name-transforms
-      `((".*" ,autosave-dir t)))
+      `((".*" ,vizier-autosave-dir t)))
 
 ;; replace yes/no with y/n.
 (fset 'yes-or-no-p 'y-or-n-p)
@@ -73,14 +76,3 @@
 (set-keyboard-coding-system 'utf-8)
 (set-selection-coding-system 'utf-8)
 (prefer-coding-system 'utf-8)
-
-;; don't use tabs, spaces only.
-(set-default 'indent-tabs-mode nil)
-
-;; edit compressed files
-(auto-compression-mode t)
-
-;; show matching parens.
-(show-paren-mode 1)
-
-(load "extra-defaults")

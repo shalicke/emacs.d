@@ -13,5 +13,5 @@
 (global-set-key (kbd "C-f ?") 'isearch-backward-regexp)
 (global-set-key (kbd "C-f SPC") 'ido-recentf-open)
 
-;; find files matching current buffer's major mode (see functions.el)
+;; find regexp in files matching current buffer's major mode (see functions.el)
 (global-set-key (kbd "C-f g") 'multi-occur-in-this-mode)

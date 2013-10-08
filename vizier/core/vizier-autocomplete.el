@@ -1,6 +1,8 @@
 ;; auto-complete settings.
 
 ;; heavily cribbed from the fantastic emacs-live.
+
+;; TODO review this fuzzy bit. Use grizzl?
 (require 'fuzzy)
 (require 'popup)
 (require 'auto-complete)
@@ -8,7 +10,7 @@
 
 (ac-config-default)
 (ac-flyspell-workaround)
-(setq ac-comphist-file  "~/emacs.d/tmp/ac-comphist.dat")
+(setq ac-comphist-file  (concat vizier-tmp-dir "ac-comphist.dat"))
 
 (global-auto-complete-mode t)
 (setq ac-auto-show-menu t)
