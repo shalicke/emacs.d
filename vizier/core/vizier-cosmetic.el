@@ -1,10 +1,8 @@
 ;; vizier cosmetic stuff.
 
-;; show matching parens.
-(show-paren-mode 1)
-
 ;; Line numbers
 (global-linum-mode 1)
+(linum-format "%2d")
 
 ;; highlight the current line always
 (global-hl-line-mode 1)
@@ -13,11 +11,9 @@
 (setq tooltip-use-echo-area t)
 (tooltip-mode -1)
 
-;; fic-mode highlights
-(require 'fic-mode)
-(fic-mode)
-(setq fic-background-color nil)
-(setq fic-foreground-color "cyan")
+;; paren matching, reloaded.
+(require 'mic-paren)
+(paren-activate)
 
 ;; trim whitespace.
 ;; cribbed from emacs live but changed to reflect vizier namespace.

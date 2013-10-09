@@ -1,11 +1,13 @@
-;; defaults / basic stuff, and built-in functionality.
+;;; vizier-defaults --- defaults / basic stuff, and built-in functionality.
+;;; Commentary:
 ;; again, lots of things cribbed from emacs-live or slightly modified.
+;;; Code:
 
-(setq vizier-base-dir "~/.emacs.d/")
-(setq vizier-tmp-dir (concat vizier-base-dir "tmp/"))
-(setq vizier-lib-dir (concat vizier-base-dir "lib/"))
-(setq vizier-snippets-dir (concat vizier-base-dir "snippets/"))
-(setq vizier-autosave-dir (concat vizier-tmp-dir "autosave/"))
+(defvar vizier-base-dir "~/.emacs.d/")
+(defvar vizier-tmp-dir (concat vizier-base-dir "tmp/"))
+(defvar vizier-lib-dir (concat vizier-base-dir "lib/"))
+(defvar vizier-snippets-dir (concat vizier-base-dir "snippets/"))
+(defvar vizier-autosave-dir (concat vizier-tmp-dir "autosave/"))
 
 ;; create required directories for things.
 ;; tmp
@@ -30,7 +32,6 @@
 (setq initial-major-mode 'lisp-interaction-mode
       ;; utf-8 (see other coding vars set elsewhere)
       locale-coding-system 'utf-8
-      utf-translate-cjk-mode nil
       ;; pending input does not pre-empt redraw
       redisplay-dont-pause t
       ;; disable the bell.
@@ -62,6 +63,7 @@
       ;; highlight search/replace
       query-replace-highlight t
       ;; compilation mode stuff
+      ;; TODO: move to prog mode.
       compilation-auto-jump-to-first-error t
       next-error-highlight t
       next-error-highlight-no-select t
@@ -69,10 +71,13 @@
       mac-command-modifier 'meta
       mac-option-modifier 'super)
 
-;; utf-8 everywhere, disable CJK.
+;; utf-8 everywhere.
 (set-language-environment 'utf-8)
 (set-default-coding-systems 'utf-8)
 (set-terminal-coding-system 'utf-8)
 (set-keyboard-coding-system 'utf-8)
 (set-selection-coding-system 'utf-8)
 (prefer-coding-system 'utf-8)
+
+(provide 'vizier-defaults)
+;;; vizier-defaults.el ends here

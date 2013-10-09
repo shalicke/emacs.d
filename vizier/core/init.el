@@ -1,9 +1,12 @@
-;; the core Vizier configuration.
+;;; vizier-core --- the core Vizier configuration.
 
+;;; Commentary:
 ;; Load the default modules.
 
 ;; some packages just need to be enabled or have a little bit of configuration,
 ;; and don't really need their own configuration file.
+
+;;; Code:
 
 ;; better-defaults
 (require 'better-defaults)
@@ -12,11 +15,8 @@
 (load-vizier-lib "core/vizier-defaults")
 
 ;; files, buffers, and window configuration.
-(load-vizier-lib "core/files-and-buffers")
+(load-vizier-lib "core/vizier-fwb")
 
-;; winner-mode
-(when (fboundp 'winner-mode)
-  (winner-mode 1))
 
 ;; undo-tree
 (require 'undo-tree)
@@ -32,6 +32,11 @@
 
 ;; ace-jump
 (require 'ace-jump-mode)
+
+
+;; TODO: move these to the package interface.
+;; misc functions that need a home or to be better grouped.
+(load-vizier-lib "core/vizier-functions")
 
 ;; icicles
 (load-vizier-lib "core/vizier-icicles")
@@ -61,3 +66,6 @@
 
 ;; cosmetic
 (load-vizier-lib "core/vizier-cosmetic")
+
+(provide 'vizier-core)
+;;; vizier-core.el ends here

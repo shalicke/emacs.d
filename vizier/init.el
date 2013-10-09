@@ -17,6 +17,8 @@
                                   undo-tree
                                   recentf
                                   rainbow-delimiters
+                                  find-file-in-project
+                                  mic-paren
                                   popwin
                                   flycheck)
   "Vizier's core set of packages.")
@@ -26,13 +28,16 @@
                                      dash
                                      pkg-info
                                      nrepl
+                                     nrepl-tracing
+                                     nrepl-sex
                                      ac-nrepl
-                                     refheap)
+                                     refheap
+                                     align-cljlet)
   "Vizier's Clojure packages."
   :group 'vizier)
 
 (defcustom vizier-adoc-packages '(markup-faces
-                               adoc-mode)
+                                  adoc-mode)
   "Vizier's AsciiDoc packages."
   :group 'vizier)
 
@@ -61,6 +66,7 @@
   (load (concat vizier-install-dir lib)))
 
 (load-vizier-lib "core/init")
+(load-vizier-lib "prog/init")
 (load-vizier-lib "clojure/init")
 
 ;; testing

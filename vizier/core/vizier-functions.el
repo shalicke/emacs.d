@@ -1,18 +1,24 @@
+;;; vizier-functions --- utility and other functions.
+;;; Commentary:
+;;; This should probably be split out into the respective modules, but
+;;; some are necessary here.  Will have to figure this out.  TODO: this.
+
+;;; Code:
+
 (defun save-buffer-delete-frame ()
+  "Save the buffer, then close the frame."
   (interactive)
   (save-buffer)
   (delete-frame))
 
 (defun save-buffer-kill-buffer ()
+  "Save the buffer if unsaved, and then kill it."
   (interactive)
   (save-some-buffers t)
   (kill-this-buffer))
 
-(eval-when-compile
-  (require 'cl))
-
 (defun get-buffers-matching-mode (mode)
-  "Returns a list of buffers where their major-mode is equal to MODE"
+  "Return a list of buffers where their `major-mode' is equal to MODE."
   (let ((buffer-mode-matches '()))
     (dolist (buf (buffer-list))
       (with-current-buffer buf
@@ -28,5 +34,10 @@
    (car (occur-read-primary-args))))
 
 (defun indent-buffer ()
+  "Indent the entire buffer."
   (interactive)
   (indent-region (point-min) (point-max)))
+
+
+(provide 'vizier-functions)
+;;; vizier-functions.el ends here

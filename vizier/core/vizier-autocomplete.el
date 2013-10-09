@@ -1,6 +1,14 @@
+;;; vizier-autocomplete --- Autocomplete settings.
+;;; Commentary:
 ;; auto-complete settings.
 
 ;; heavily cribbed from the fantastic emacs-live.
+;; improve on this somehow.
+
+;; TODO: colors / highlighting of potential matches (?)
+;; TODO: tweak ac settings
+
+;;; Code:
 
 ;; TODO review this fuzzy bit. Use grizzl?
 (require 'fuzzy)
@@ -38,6 +46,7 @@
 
 
 ;;;;Key triggers
+;; TODO: tune these
 (define-key ac-completing-map (kbd "C-M-n") 'ac-next)
 (define-key ac-completing-map (kbd "C-M-p") 'ac-previous)
 (define-key ac-completing-map "\t" 'ac-complete)

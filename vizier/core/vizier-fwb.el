@@ -7,6 +7,10 @@
 (auto-compile-on-load-mode 1)
 (auto-compile-on-save-mode 1)
 
+;; winner-mode
+(when (fboundp 'winner-mode)
+  (winner-mode 1))
+
 ;; savehist config
 (setq savehist-additional-variables
       ;; search entries
@@ -38,6 +42,12 @@
 ;; find-file-at-point, improved
 (require 'ffap-)
 (ffap-bindings)
+
+;; window-number-mode
+;; binds windows to M-1, M-2, etc.
+;; TODO: figure out how to rearrange its position in modeline
+(require 'window-number)
+(window-number-meta-mode 1)
 
 (provide 'vizier-fwb)
 ;;; vizier-fwb.el ends here

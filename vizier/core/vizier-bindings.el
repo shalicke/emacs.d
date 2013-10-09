@@ -8,6 +8,7 @@
 (require 'recentf)
 
 (global-set-key (kbd "C-f") nil)
+(global-set-key (kbd "C-f i") 'icicle-search)
 (global-set-key (kbd "C-f f") 'ace-jump-mode)
 (global-set-key (kbd "C-f /") 'isearch-forward-regexp)
 (global-set-key (kbd "C-f ?") 'isearch-backward-regexp)
