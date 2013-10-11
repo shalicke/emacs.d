@@ -8,10 +8,11 @@
 (require 'recentf)
 
 (global-set-key (kbd "C-f") nil)
+(global-set-key (kbd "C-f i") 'icicle-search)
 (global-set-key (kbd "C-f f") 'ace-jump-mode)
 (global-set-key (kbd "C-f /") 'isearch-forward-regexp)
 (global-set-key (kbd "C-f ?") 'isearch-backward-regexp)
 (global-set-key (kbd "C-f SPC") 'ido-recentf-open)
 
-;; find files matching current buffer's major mode (see functions.el)
+;; find regexp in files matching current buffer's major mode (see functions.el)
 (global-set-key (kbd "C-f g") 'multi-occur-in-this-mode)

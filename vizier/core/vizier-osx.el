@@ -16,6 +16,7 @@
       (process-send-string proc text)
       (process-send-eof proc))))
 
+;; use pbpaste/pbcopy from the terminal.
 (when (not window-system)
   (setq interprogram-cut-function 'live-paste-to-osx)
   (setq interprogram-paste-function 'live-copy-from-osx))
@@ -29,5 +30,12 @@
 ;; Ensure the exec-path honours the shell PATH
 (require 'exec-path-from-shell)
 
-;; Ignore .DS_Store files with ido mode
-(add-to-list 'ido-ignore-files "\\.DS_Store")
+;; TODO: ignore .DS with icicles
+(add-to-list 'completion-ignored-extensions ".DS_Store")
+
+;; use spotlight to 'locate'
+(setq locate-command "mdfind")
+
+;; command (e.g. M) M-` should switch frames
+(define-key icicle-mode-map [?\M-`] nil)
+(global-set-key [?\M-`] 'other-frame)

@@ -1,24 +1,35 @@
-;; defaults / basic stuff, and built-in functionality.
+;;; vizier-defaults --- defaults / basic stuff, and built-in functionality.
+;;; Commentary:
 ;; again, lots of things cribbed from emacs-live or slightly modified.
+;;; Code:
 
-(setq base-dir "~/.emacs.d/")
-(setq tmp-dir (concat base-dir "tmp/"))
-(setq lib-dir (concat base-dir "lib/"))
-(setq snippets-dir (concat base-dir "snippets/"))
-(setq autosave-dir (concat tmp-dir "autosave/"))
+(defvar vizier-base-dir "~/.emacs.d/")
+(defvar vizier-tmp-dir (concat vizier-base-dir "tmp/"))
+(defvar vizier-lib-dir (concat vizier-base-dir "lib/"))
+(defvar vizier-snippets-dir (concat vizier-base-dir "snippets/"))
+(defvar vizier-autosave-dir (concat vizier-tmp-dir "autosave/"))
 
 ;; create required directories for things.
-;; tmp
-;; autosave
-;; snippets
-;; lib
+(defun vizier-create-directories ()
+  (mapc
+   (lambda (dir) (progn (msg (concat "created: " dir))
+                        (make-directory dir t)))
+   (list vizier-base-dir
+         vizier-tmp-dir
+         vizier-lib-dir
+         vizier-snippets-dir
+         vizier-autosave-dir)))
+
+(vizier-create-directories)
+;; don't use tabs, spaces only.
+(set-default 'indent-tabs-mode nil)
 
 ;; the auto-save and backup directories.
 (setq backup-directory-alist
-      `((".*" . ,autosave-dir)))
+      `((".*" . ,vizier-autosave-dir)))
 
 (setq auto-save-file-name-transforms
-      `((".*" ,autosave-dir t)))
+      `((".*" ,vizier-autosave-dir t)))
 
 ;; replace yes/no with y/n.
 (fset 'yes-or-no-p 'y-or-n-p)
@@ -27,7 +38,6 @@
 (setq initial-major-mode 'lisp-interaction-mode
       ;; utf-8 (see other coding vars set elsewhere)
       locale-coding-system 'utf-8
-      utf-translate-cjk-mode nil
       ;; pending input does not pre-empt redraw
       redisplay-dont-pause t
       ;; disable the bell.
@@ -59,14 +69,16 @@
       ;; highlight search/replace
       query-replace-highlight t
       ;; compilation mode stuff
+      ;; TODO: move to prog mode.
       compilation-auto-jump-to-first-error t
       next-error-highlight t
       next-error-highlight-no-select t
-      ;; command is M, option is s
+      ;; TODO: review this to kind of make it like ergoemacs?
+      
       mac-command-modifier 'meta
       mac-option-modifier 'super)
 
-;; utf-8 everywhere, disable CJK.
+;; utf-8 everywhere.
 (set-language-environment 'utf-8)
 (set-default-coding-systems 'utf-8)
 (set-terminal-coding-system 'utf-8)
@@ -74,13 +86,5 @@
 (set-selection-coding-system 'utf-8)
 (prefer-coding-system 'utf-8)
 
-;; don't use tabs, spaces only.
-(set-default 'indent-tabs-mode nil)
-
-;; edit compressed files
-(auto-compression-mode t)
-
-;; show matching parens.
-(show-paren-mode 1)
-
-(load "extra-defaults")
+(provide 'vizier-defaults)
+;;; vizier-defaults.el ends here
