@@ -5,6 +5,16 @@
 
 ;;; Code:
 
+(defun sure-you-want-to-quit ()
+  "Confirm quit."
+  (interactive)
+  (if (y-or-n-p "Vizier: Are you sure you want to quit? ")
+      (save-buffers-kill-terminal 1)
+    (message "%s" "Quit canceled.")))
+
+;; FIXME: stray keybinding
+(global-set-key (kbd "C-x C-c") 'sure-you-want-to-quit)
+
 (defun save-buffer-delete-frame ()
   "Save the buffer, then close the frame."
   (interactive)

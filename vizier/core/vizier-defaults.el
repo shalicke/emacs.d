@@ -10,11 +10,17 @@
 (defvar vizier-autosave-dir (concat vizier-tmp-dir "autosave/"))
 
 ;; create required directories for things.
-;; tmp
-;; autosave
-;; snippets
-;; lib
+(defun vizier-create-directories ()
+  (mapc
+   (lambda (dir) (progn (msg (concat "created: " dir))
+                        (make-directory dir t)))
+   (list vizier-base-dir
+         vizier-tmp-dir
+         vizier-lib-dir
+         vizier-snippets-dir
+         vizier-autosave-dir)))
 
+(vizier-create-directories)
 ;; don't use tabs, spaces only.
 (set-default 'indent-tabs-mode nil)
 
@@ -67,7 +73,8 @@
       compilation-auto-jump-to-first-error t
       next-error-highlight t
       next-error-highlight-no-select t
-      ;; command is M, option is s
+      ;; TODO: review this to kind of make it like ergoemacs?
+      
       mac-command-modifier 'meta
       mac-option-modifier 'super)
 

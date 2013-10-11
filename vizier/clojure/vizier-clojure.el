@@ -3,9 +3,6 @@
 ;;; Code:
 
 ;; everything in here for now.
-;;(load-vizier-lib "clojure/nrepl-config")
-;;(load-vizier-lib "clojure/font-config")
-;;(load-vizier-lib "clojure/misc-config")
 
 ;; brilliant, from emacs-live.
 ;; TODO: add set modifiers for operations like union?
@@ -35,10 +32,14 @@
 (eval-after-load 'find-file-in-project
   '(add-to-list 'ffip-patterns "*.clj"))
 
+;; require clojure-mode to affect the keymap
 (require 'clojure-mode)
+
+;; TODO: colors for this
 (require 'nrepl-eval-sexp-fu)
 
 ;; align clojure let statements properly.
+;; TODO: bake this into RET
 (require 'align-cljlet)
 
 ;; show current function in modeline.
@@ -48,10 +49,10 @@
 (which-function-mode 1)
 
 ;; more brilliance from emacs-live.
-;; TODO: need to figure out the delete-and-extract-sexp.
+;; TODO: need to figure out the delete-and-extract-sexp. this done in smartparens already?
 
 (defun live-toggle-clj-keyword-string ()
-  "convert the string or keyword at (point) from string->keyword or keyword->string."
+  "+onvert the string or keyword at (point) from string->keyword or keyword->string."
   (interactive)
   (let* ((original-point (point)))
     (while (and (> (point) 1)
@@ -70,7 +71,7 @@
 (define-key clojure-mode-map (kbd "C-:") 'live-toggle-clj-keyword-string)
 
 (defun live-cycle-clj-coll ()
-  "convert the coll at (point) from (x) -> {x} -> [x] -> (x) recur"
+  "Convert the coll at (point) from (x) -> {x} -> [x] -> (x) recur."
   (interactive)
   (let* ((original-point (point)))
     (while (and (> (point) 1)
@@ -91,5 +92,8 @@
 
 (define-key clojure-mode-map (kbd "C->") 'live-cycle-clj-coll)
 
+;; include nrepl configuration
+(load-vizier-lib "clojure/vizier-nrepl")
+
 (provide 'vizier-clojure)
-;;; vizier-clojure ends here
+;;; vizier-clojure.el ends here

@@ -1,11 +1,19 @@
-;; vizier cosmetic stuff.
+;;; vizier-cosmetic --- vizier cosmetic stuff.
+;;; Commentary:
+;;; Code:
 
 ;; Line numbers
 (global-linum-mode 1)
-(linum-format "%2d")
+(setq linum-format "%2d")
 
 ;; highlight the current line always
 (global-hl-line-mode 1)
+
+;; volatile-higlights
+(require 'volatile-highlights)
+(volatile-highlights-mode t)
+
+;; TODO: change highlight flash color.
 
 ;; tooltips in echo area
 (setq tooltip-use-echo-area t)
@@ -33,18 +41,23 @@
 (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
 ;; but enable the menubar.
 (if (fboundp 'menu-bar-mode) (menu-bar-mode +1))
-;; make fringe smaller
-(if (fboundp 'fringe-mode) (fringe-mode 4))
+;; make fringe smaller-ish
+;; TODO: change this up color-wise. git-gutter has to work here as well. HARMONIZE!
+(if (fboundp 'fringe-mode) (fringe-mode 6))
+
+;; powerline
+(require 'powerline)
+(powerline-default-theme)
 
 ;; 24+ themes
 (load-theme 'solarized-dark)
 
 ;; font setting from emacs-live
-;; fonts.
+
 (require 'cl)
 
 (defun live-set-default-font (font-string)
-  "Sets the default font and sets all frames to the same font trying to maintain window resolution. Only changes font if window system is not a basic terminal."
+  "Set the default font, and set all frames to the same FONT-STRING, trying to maintain window resolution.  Only change font if window system is not a basic terminal."
   (interactive "MNew emacs live default font: ")
   (setq default-frame-alist
         (remove-if (lambda (x)
@@ -55,11 +68,16 @@
     (add-to-list 'default-frame-alist (cons 'font font-string))
     (set-default-font font-string t t))))
 
+
+;; TODO: Why is this necessary? It works, but, research.
 (defun live-set-default-darwin-font (font-string)
-  "Sets the default font and sets all frames to the same font trying to maintain window resolution. Only changes font if system-type is darwin in a window system."
+  "Set the default font and set all frames to the same FONT-STRING trying to maintain window resolution.  Only change font if `system-type' is darwin in a window system."
   (interactive "MNew darwin default font: ")
   (cond
    ((eq system-type 'darwin)
     (live-set-default-font font-string))))
 
 (live-set-default-darwin-font "PragmataPro-12")
+
+(provide 'vizier-cosmetic)
+;;; vizier-cosmetic.el ends here

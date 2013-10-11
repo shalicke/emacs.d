@@ -33,7 +33,6 @@
 ;; ace-jump
 (require 'ace-jump-mode)
 
-
 ;; TODO: move these to the package interface.
 ;; misc functions that need a home or to be better grouped.
 (load-vizier-lib "core/vizier-functions")
