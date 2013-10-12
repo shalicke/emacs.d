@@ -3,28 +3,35 @@
 ;;; Code:
 
 ;; Line numbers
+;; TODO: linum format, figure this out / refactor
 (global-linum-mode 1)
 (setq linum-format "%2d")
+
+;; relative line numbers. Line # in modeline as-is.
+(require 'linum-relative)
+(linum-relative-toggle)
 
 ;; highlight the current line always
 (global-hl-line-mode 1)
 
 ;; volatile-higlights
+;; using diff-hl instead of regular HL...
 (require 'volatile-highlights)
 (volatile-highlights-mode t)
-
-;; TODO: change highlight flash color.
 
 ;; tooltips in echo area
 (setq tooltip-use-echo-area t)
 (tooltip-mode -1)
 
 ;; paren matching, reloaded.
+;; TODO: configure mic-paren
+
 (require 'mic-paren)
 (paren-activate)
 
 ;; trim whitespace.
 ;; cribbed from emacs live but changed to reflect vizier namespace.
+;; FIXME: move to fwb
 (defun vizier-cleanup-whitespace ()
   (let ((whitespace-style '(trailing empty)) )
     (whitespace-cleanup)))
@@ -39,8 +46,8 @@
 ;; get rid of clutter
 (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
 (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
-;; but enable the menubar.
-(if (fboundp 'menu-bar-mode) (menu-bar-mode +1))
+;; FIXME: the menubar seems to cause some wacky shit with notifications on 10.9
+(if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
 ;; make fringe smaller-ish
 ;; TODO: change this up color-wise. git-gutter has to work here as well. HARMONIZE!
 (if (fboundp 'fringe-mode) (fringe-mode 6))

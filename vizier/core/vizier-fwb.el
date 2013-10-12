@@ -9,9 +9,6 @@
 
 ;; TODO: figure out cursor staying in same position when scrolling the window.
 
-;; relative line numbers. Line # in modeline as-is.
-(require 'linum-relative)
-(linum-relative-toggle)
 
 (require 'tramp)
 ;; from emacs-live

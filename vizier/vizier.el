@@ -18,12 +18,19 @@
 ;; configuraiton of buffers, etc. or maybe a :vizier key in profiles.clj.
 
 ;; icy-mode completion of the 'right' things.
+;; icy/grizzl/helm/fuzzy/all-that.
 
 ;; mic-paren and smartparens configuration bits from emacs-live
 
 ;; color-coordination of things
 
 ;; add to solarized theme
+
+;; vizier-tasks -- parse special code tags like TODO into another file with
+;; references to originals, etc. Running list of grouped HACK/FIXME/RESEARCH
+;; etc.
+
+;; implement as minor code-tags-to-tasks mode or something
 
 ;;; Code:
 
@@ -36,46 +43,9 @@
 
 (defvar vizier-install-dir (concat base-dir "vizier/"))
 
-(defcustom vizier-core-packages '(icicles
-                                  auto-complete
-                                  better-defaults
-                                  smartparens
-                                  exec-path-from-shell
-                                  ace-jump-mode
-                                  yasnippets
-                                  undo-tree
-                                  recentf
-                                  rainbow-delimiters
-                                  find-file-in-project
-                                  mic-paren
-                                  highlight
-                                  popwin
-                                  flycheck)
-  "Vizier's core set of packages.")
+;; TODO: move this all to Cask.
 
-(defcustom vizier-clojure-packages '(clojure-mode
-                                     clojure-test-mode
-                                     dash
-                                     pkg-info
-                                     nrepl
-                                     nrepl-tracing
-                                     nrepl-eval-sexp-fu
-                                     ac-nrepl
-                                     refheap
-                                     align-cljlet)
-  "Vizier's Clojure packages."
-  :group 'vizier)
-
-(defcustom vizier-adoc-packages '(markup-faces
-                                  adoc-mode)
-  "Vizier's AsciiDoc packages."
-  :group 'vizier)
-
-(defvar vizier-default-package-groups '(vizier-core-packages))
-
-(defcustom vizier-packages vizier-default-package-groups
-  "The installed / enabled packages."
-  :group 'vizier)
+;; package management moved to cask / deleted.
 
 (defun vizier-message (msg-string)
   (message "%s| %s" "Vizier" (message msg-string)))
@@ -86,11 +56,6 @@
   (unless (package-installed-p package)
     (msg (concat "Installed package: " package))
     (package-install package)))
-
-(defun install-package-list (package-list)
-  (mapc
-   (lambda (pkg) (ensure-package-installed pkg))
-   package-list))
 
 (defun load-vizier-lib (lib)
   (load (concat vizier-install-dir lib)))
@@ -133,6 +98,7 @@
   (load-vizier-lib "clojure/vizier-nrepl"))
 
 ;; will have to modify how other things run, i think.
+;; TODO: investigate hook order / running / etc
 
 (vizier-load-core)
 (vizier-load-prog)

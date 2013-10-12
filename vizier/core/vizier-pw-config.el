@@ -1,6 +1,10 @@
-(require 'popwin)
-(setq display-buffer-function 'popwin:display-buffer)
+;;; vizier-pw-config --- popwin configuration
+;;; Commentary:
+;;; Code:
 
+;;; TODO: review this
+
+(require 'popwin)
 (setq popwin:special-display-config
       '(("*Help*"  :height 30)
         ("*Completions*" :noselect t)
@@ -26,3 +30,9 @@
         ("*Kill Ring*" :height 30)
         ("*Compile-Log*" :height 30 :stick t)
         ("*git-gutter:diff*" :height 30 :stick t)))
+
+;;(add-to-list 'display-buffer-alist 'popwin:display-buffer)
+(popwin-mode 1)
+
+(provide 'vizier-pw-config)
+;;; vizier-pw-config.el ends here

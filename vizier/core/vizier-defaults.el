@@ -32,7 +32,7 @@
       `((".*" ,vizier-autosave-dir t)))
 
 ;; replace yes/no with y/n.
-(fset 'yes-or-no-p 'y-or-n-p)
+(defalias 'yes-or-no-p 'y-or-n-p)
 
 ;; default startup and setting of variables.
 (setq initial-major-mode 'lisp-interaction-mode
@@ -74,7 +74,7 @@
       next-error-highlight t
       next-error-highlight-no-select t
       ;; TODO: review this to kind of make it like ergoemacs?
-      
+
       mac-command-modifier 'meta
       mac-option-modifier 'super)
 

@@ -35,18 +35,30 @@
 ;; require clojure-mode to affect the keymap
 (require 'clojure-mode)
 
-;; TODO: colors for this
+;; colors are a nice red/green highlight.
 (require 'nrepl-eval-sexp-fu)
+(setq nrepl-eval-sexp-fu-flash-face 'diff-hl-insert)
+(setq nrepl-eval-sexp-fu-flash-error-face 'diff-hl-delete)
+(setq nrepl-eval-sexp-fu-flash-duration 0.5)
+
+;; find some way of making highlights stick?
+(setq nrepl-eval-sexp-fu-flash-error-duration 30)
+
 
 ;; align clojure let statements properly.
 ;; TODO: bake this into RET
 (require 'align-cljlet)
 
 ;; show current function in modeline.
+;; TODO: lots of powerline customization
 (require 'which-func)
 (eval-after-load "which-func"
   '(add-to-list 'which-func-modes 'clojure-mode))
 (which-function-mode 1)
+
+;; TODO: persistent help window configuration / general window config for
+;; clojure mode. Depends on project and git integration as well as what I get
+;; done with powerline.
 
 ;; more brilliance from emacs-live.
 ;; TODO: need to figure out the delete-and-extract-sexp. this done in smartparens already?
