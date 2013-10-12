@@ -11,13 +11,6 @@
 ;; better-defaults
 (require 'better-defaults)
 
-;; load vizier defaults and file structure, create directories if necessary, etc.
-(load-vizier-lib "core/vizier-defaults")
-
-;; files, buffers, and window configuration.
-(load-vizier-lib "core/vizier-fwb")
-
-
 ;; undo-tree
 (require 'undo-tree)
 (global-undo-tree-mode 1)
@@ -33,8 +26,16 @@
 ;; ace-jump
 (require 'ace-jump-mode)
 
+;; load vizier defaults and file structure, create directories if necessary, etc.
+(load-vizier-lib "core/vizier-defaults")
+
+;; files, buffers, and window configuration.
+(load-vizier-lib "core/vizier-fwb")
+
 ;; TODO: move these to the package interface.
 ;; misc functions that need a home or to be better grouped.
+;; also, cask.
+
 (load-vizier-lib "core/vizier-functions")
 
 ;; icicles
@@ -50,7 +51,7 @@
 (load-vizier-lib "core/vizier-autocomplete")
 
 ;; smartparens
-(load-vizier-lib "core/vizier-sp-bindings")
+(load-vizier-lib "core/vizier-sp-config")
 
 ;; (sparse) global bindings
 (load-vizier-lib "core/vizier-bindings")

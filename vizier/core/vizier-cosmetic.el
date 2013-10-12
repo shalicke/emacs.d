@@ -5,7 +5,7 @@
 ;; Line numbers
 ;; TODO: linum format, figure this out / refactor
 (global-linum-mode 1)
-(setq linum-format "%2d")
+(setq linum-format "%4d")
 
 ;; relative line numbers. Line # in modeline as-is.
 (require 'linum-relative)
@@ -20,14 +20,20 @@
 (volatile-highlights-mode t)
 
 ;; tooltips in echo area
-(setq tooltip-use-echo-area t)
 (tooltip-mode -1)
 
 ;; paren matching, reloaded.
-;; TODO: configure mic-paren
-
 (require 'mic-paren)
+(show-paren-mode 0)
 (paren-activate)
+
+;; highlight the nearest matching parens
+(setq paren-highlight-at-point t)
+;; highlight entire not-matching sexp
+(setq paren-sexp-mode 'mismatch)
+(setq paren-match-face 'hi-green)
+(setq paren-mismatch-face 'flycheck-fringe-warning)
+(setq paren-no-match-face 'flycheck-fringe-error)
 
 ;; trim whitespace.
 ;; cribbed from emacs live but changed to reflect vizier namespace.
@@ -39,6 +45,9 @@
 
 ;; fontify all the things
 (setq font-lock-maximum-decoration t)
+
+;; TODO: consider adding the emacs-live 'hexrgb lite'
+;; https://groups.google.com/forum/?fromgroups=#!topic/gnu.emacs.help/EQTSiulnbAo
 
 ;; Line-wrapping at 78, not 72
 (set-default 'fill-column 78)
@@ -57,28 +66,15 @@
 (powerline-default-theme)
 
 ;; 24+ themes
+;; remember, my theme overwrites the base solarized colors
 (load-theme 'solarized-dark)
 
 ;; font setting from emacs-live
-
-(require 'cl)
-
-(defun live-set-default-font (font-string)
-  "Set the default font, and set all frames to the same FONT-STRING, trying to maintain window resolution.  Only change font if window system is not a basic terminal."
-  (interactive "MNew emacs live default font: ")
-  (setq default-frame-alist
-        (remove-if (lambda (x)
-                     (eq 'font (car x)))
-                   default-frame-alist))
-  (cond
-   ((member (window-system) '(x w32 ns))
-    (add-to-list 'default-frame-alist (cons 'font font-string))
-    (set-default-font font-string t t))))
-
-
 ;; TODO: Why is this necessary? It works, but, research.
 (defun live-set-default-darwin-font (font-string)
-  "Set the default font and set all frames to the same FONT-STRING trying to maintain window resolution.  Only change font if `system-type' is darwin in a window system."
+  "Set the default font and set all frames to the same FONT-STRING.
+Try to maintain window resolution.  Only change font if `system-type'
+is darwin in a window system."
   (interactive "MNew darwin default font: ")
   (cond
    ((eq system-type 'darwin)
