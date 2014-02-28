@@ -1,4 +1,4 @@
-;;; kongming-cosmetic.el
+;;; kongming-cosmetic.el --- cosmetic stuff
 ;;; Commentary:
 ;; cosmetic stuff -- fonts, theemes, colors, fringe, etc.
 ;;; Code:
@@ -28,12 +28,12 @@
 (volatile-highlights-mode t)
 
 ;; tooltips in echo area
-(setq tooltip-use-echo-area t)
-(tooltip-mode -1)
+(tooltip-mode)
 
 ;; trim whitespace.
-;; cribbed from emacs live but changed to reflect vizier namespace.
+;; cribbed from emacs live
 (defun kongming-cleanup-whitespace ()
+  "Cleanup whitespace on save."
   (let ((whitespace-style '(trailing empty)) )
     (whitespace-cleanup)))
 (add-hook 'before-save-hook 'kongming-cleanup-whitespace)
@@ -87,7 +87,7 @@
     (live-set-default-font font-string))))
 
 (live-set-default-darwin-font "PragmataPro-12")
-
+(set-frame-font "PragmataPro-12")
 ;; no tabs
 (set-default 'indent-tabs-mode nil)
 

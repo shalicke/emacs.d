@@ -5,7 +5,9 @@
 
 ;; enable flycheck.
 (require 'flycheck)
-(require 'smartparens-config)
+(require 'flycheck-tip)
+
+
 
 ;; smart things from prelude
 ;; added NOTE.
@@ -71,7 +73,7 @@
 (require 'kongming-adoc)
 
 ;; clojure
-;;(require 'kongming-clojure)
+(require 'kongming-clojure)
 
 ;; erlang
 ;(require 'kongming-erlang)

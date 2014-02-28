@@ -200,11 +200,16 @@
 ;; pos-tip
 (require 'pos-tip)
 
+;; cosmetic stuff, fonts, colors, etc
 (require 'kongming-cosmetic)
-(require 'kongming-erc)
-(require 'kongming-prog)
-(require 'kongming-bindings)
-(require 'kongming-clojure)
 
+;; erc configuration
+(require 'kongming-erc)
+
+;; prog includes all other programming modes
+(require 'kongming-prog)
+
+;; bindings last to override other stuff
+(require 'kongming-bindings)
 (provide 'kongming-core)
 ;;; kongming-core.el ends here

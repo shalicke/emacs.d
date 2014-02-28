@@ -3,13 +3,25 @@
 ;; Global keybinds.
 ;;; Code:
 
+
+;; key chords
+(require 'key-chord)
+(key-chord-mode 1)
+
+(key-chord-define-global "//" 'isearch-forward-regexp)
+(key-chord-define-global "??" 'isearch-backward-regexp)
+
 ;; windows
 
+(global-set-key (kbd "M-2") 'delete-window)
+(global-set-key (kbd "M-3") 'delete-other-windows)
+(global-set-key (kbd "M-4") 'split-window-vertically)
+(global-set-key (kbd "M-s") 'other-window)
+
+
+;; TODO: rewrite these functions
 ;;(global-set-key (kbd "C-x w") 'save-buffer-delete-frame)
-(global-set-key (kbd "C-x C-k") 'save-buffer-kill-buffer)
-
-
-(require 'recentf)
+;;(global-set-key (kbd "C-x C-k") 'save-buffer-kill-buffer)
 
 (global-set-key (kbd "C-f") nil)
 (global-set-key (kbd "C-f C-f") 'ace-jump-mode)

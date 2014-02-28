@@ -27,6 +27,7 @@
 (depends-on "helm-flycheck")
 (depends-on "helm-descbinds")
 (depends-on "helm-package")
+(depends-on "key-chord")
 (depends-on "magit")
 (depends-on "markup-faces")
 (depends-on "mic-paren")
