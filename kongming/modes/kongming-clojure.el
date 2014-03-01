@@ -19,7 +19,7 @@
 
 (setq cider-popup-stacktraces nil)
 
-(set cider-repl-result-prefix ";; => ")
+(setq cider-repl-result-prefix ";; => ")
 
 (setq cider-repl-use-clojure-font-lock t)
 

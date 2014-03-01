@@ -1,4 +1,4 @@
-# Prelude
+# Solarized for Emacs
 
 Solarized for Emacs is an Emacs port of the [Solarized theme for vim](http://ethanschoonover.com/solarized),
 developed by Ethan Schoonover.
@@ -15,13 +15,15 @@ customizations and `deftheme` and does not require the
 Download `solarized.el`, `solarized-dark-theme.el` and
 `solarized-light-theme.el`.
 
-Place `solarized.el` is a folder that's on your Emacs' `load-path`.
+Place `solarized.el` in a folder that's on your Emacs' `load-path`.
 Afterward place `solarized-dark-theme.el` and
 `solarized-light-theme.el` in `~/.emacs.d/themes` (or some other
 folder if you prefer so). Add this your
 `.emacs.d`:
 
-`(add-to-list 'custom-theme-load-path "~/.emacs.d/themes")`
+```lisp
+(add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
+```
 
 Now you can load the theme with the interactive function `load-theme`.
 
@@ -41,7 +43,7 @@ with `M-x load-theme`.
 # Customisations
 
 If you don't like low-contrast modeline or fringe, you can `customize` them either by doing `M-x customize-group solarized` or setting the values using elisp code:
-```emacs
+```lisp
 ;; make the fringe stand out from the background
 (setq solarized-distinct-fringe-background t)
 

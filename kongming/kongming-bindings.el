@@ -3,6 +3,12 @@
 ;; Global keybinds.
 ;;; Code:
 
+;; remap movement
+
+(global-set-key (kbd "M-j") 'next-line)
+(global-set-key (kbd "M-k") 'previous-line)
+(global-set-key (kbd "M-h") 'backward-char)
+(global-set-key (kbd "M-l") 'forward-char)
 
 ;; key chords
 (require 'key-chord)
@@ -17,7 +23,6 @@
 (global-set-key (kbd "M-3") 'delete-other-windows)
 (global-set-key (kbd "M-4") 'split-window-vertically)
 (global-set-key (kbd "M-s") 'other-window)
-
 
 ;; TODO: rewrite these functions
 ;;(global-set-key (kbd "C-x w") 'save-buffer-delete-frame)
@@ -42,7 +47,6 @@
 (global-set-key (kbd "C-c c") 'org-capture)
 (global-set-key (kbd "C-c l") 'org-store-link)
 (global-set-key (kbd "C-c b") 'org-iswitchb)
-
 
 (provide 'kongming-bindings)
 ;;; kongming-bindings.el ends here

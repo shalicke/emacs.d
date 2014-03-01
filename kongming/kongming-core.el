@@ -1,4 +1,4 @@
-;;; core.el -- most configuration
+;;; kongming-core.el -- core configuration
 ;;; Commentary: This is where most of the configuration goes, the bulk of the
 ;;; 'base' stuff that should be applied to all buffers. As it grows, it'll be
 ;;; split up, but it's all more or less academic yak-shaving on what goes
@@ -188,6 +188,8 @@
 
 ;; guide-key
 (require 'guide-key)
+()
+
 
 (require 'window-number)
 (window-number-meta-mode)
@@ -198,7 +200,9 @@
 (sp-use-smartparens-bindings)
 
 ;; pos-tip
+;; TODO: configure this
 (require 'pos-tip)
+
 
 ;; cosmetic stuff, fonts, colors, etc
 (require 'kongming-cosmetic)
@@ -206,8 +210,14 @@
 ;; erc configuration
 (require 'kongming-erc)
 
+;; org-mode
+(require 'kongming-org)
+
 ;; prog includes all other programming modes
 (require 'kongming-prog)
+
+
+
 
 ;; bindings last to override other stuff
 (require 'kongming-bindings)
