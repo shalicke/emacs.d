@@ -1,5 +1,8 @@
 ;;; kongming-core.el -- core configuration
-;;; Commentary: This is where most of the configuration goes, the bulk of the
+;;
+;;; Commentary:
+;;
+;;; This is where most of the configuration goes, the bulk of the
 ;;; 'base' stuff that should be applied to all buffers. As it grows, it'll be
 ;;; split up, but it's all more or less academic yak-shaving on what goes
 ;;; where.
@@ -46,7 +49,6 @@
       query-replace-highlight t
       ;; compilation mode stuff
       ;; TODO: move to prog mode.
-      compilation-auto-jump-to-first-error t
       next-error-highlight t
       next-error-highlight-no-select t)
 
@@ -74,40 +76,15 @@
 
 ;; I almost always want fill mode on.
 (auto-fill-mode 1)
-
-;; auto-byte-compile
-(require 'auto-compile)
-(auto-compile-on-load-mode 1)
-(auto-compile-on-save-mode 1)
-
-(require 'tramp)
-;; from emacs-live
-;;disable backups of files edited with tramp
-;;(add-to-list 'bkup-backup-directory-info
-;;             (list tramp-file-name-regexp ""))
-;;(setq tramp-bkup-backup-directory-info  nil)
-
-(defun sudo-edit (&optional arg)
-  "Edit files with tramp/sudo, takes an optional file name ARG."
-  (interactive "P")
-  (if (or arg (not buffer-file-name))
-      (find-file (concat "/sudo:root@localhost:" (ido-read-file-name "File: ")))
-    (find-alternate-file (concat "/sudo:root@localhost:" buffer-file-name))))
-
-;; winner-mode
-(when (fboundp 'winner-mode)
-  (winner-mode 1))
-
 ;; savehist config
 (require 'savehist)
-;; savehist config
 (setq savehist-additional-variables
       ;; search entries
       '(search ring regexp-search-ring)
       ;; save every minute
       savehist-autosave-interval 60
       ;; keep the home clean
-      savehist-file (concat base-dir "savehist"))
+      savehist-file (concat kongming:base-dir "savehist"))
 (savehist-mode t)
 
 ;; delete-selection-mode. When text is highlighted, simply
@@ -117,7 +94,13 @@
 ;; company-mode (autocomplete)
 ;;
 
-(add-hook 'after-init-hook 'global-company-mode)
+(require 'company)
+
+(setq company-tooltip-limit 20)                      ; bigger popup window
+(setq company-minimum-prefix-length 0)               ; autocomplete right after '.'
+(setq company-idle-delay .3)                         ; shorter delay before autocompletion popup
+(setq company-echo-delay 0)                          ; removes annoying blinking
+(setq company-begin-commands '(self-insert-command)) ; start autocompletion only after typing
 
 ;; remember places.
 (require 'saveplace)
@@ -180,7 +163,7 @@
 (setq twittering-use-master-password t)
 
 ;; helm!
-(require 'helm)
+(require 'helm-config)
 (helm-mode)
 
 (require 'helm-descbinds)
@@ -188,8 +171,6 @@
 
 ;; guide-key
 (require 'guide-key)
-()
-
 
 (require 'window-number)
 (window-number-meta-mode)
@@ -199,10 +180,35 @@
 (show-smartparens-global-mode)
 (sp-use-smartparens-bindings)
 
+;; browse kill ring
+(require 'browse-kill-ring)
+(browse-kill-ring-default-keybindings)
+
+;; abbrev-mode
+(setq abbrev-mode t)
+
 ;; pos-tip
 ;; TODO: configure this
 (require 'pos-tip)
 
+(require 'deft)
+(setq deft-extension "org")
+(setq deft-text-mode 'org-mode)
+(setq deft-directory "~/Dropbox/notes")
+(global-set-key [(super s)] 'deft)
+
+(require 'recentf)
+(recentf-mode)
+(setq recentf-max-menu-items 25)
+
+
+(require 'tramp)
+;; tramp
+(setq tramp-default-user "shalicke"
+      tramp-default-host "ops.neuros.es")
+
+(add-to-list 'tramp-default-proxies-alist
+             '("\\.neuros\\.es\\'" "\\`root\\'" "/ssh:%h:"))
 
 ;; cosmetic stuff, fonts, colors, etc
 (require 'kongming-cosmetic)
@@ -216,10 +222,8 @@
 ;; prog includes all other programming modes
 (require 'kongming-prog)
 
-
-
-
 ;; bindings last to override other stuff
 (require 'kongming-bindings)
+
 (provide 'kongming-core)
 ;;; kongming-core.el ends here
