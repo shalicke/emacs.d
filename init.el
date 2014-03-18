@@ -22,11 +22,11 @@
 
 ;; all my stuff
 
-(defvar base-dir "~/.emacs.d/")
-(defvar vendor-dir (concat base-dir "vendor/"))
+(defvar kongming:base-dir "~/.emacs.d/")
+(defvar vendor-dir (concat kongming:base-dir "vendor/"))
 
 ;;(add-to-list 'load-path base-dir)
-(add-to-list 'load-path (concat base-dir "kongming/"))
+(add-to-list 'load-path (concat kongming:base-dir "kongming/"))
 
 ;; random bits from the internets
 (add-to-list 'load-path vendor-dir)
@@ -45,12 +45,24 @@
 ;; set emacs default dir to our home.
 (setq default-directory "~/")
 
-;; autosave and auto-backup files to the tmp dir.
-(setq backup-directory-alist
-      `((".*" . ,temporary-file-directory)))
+;;; backup/autosave
 
-(setq auto-save-file-name-transforms
-      `((".*" ,temporary-file-directory t)))
+(defvar backup-dir (expand-file-name "~/.emacs.d/backup/"))
+(defvar autosave-dir (expand-file-name "~/.emacs.d/autosave/"))
+(setq backup-directory-alist (list (cons ".*" backup-dir)))
+(setq auto-save-list-file-prefix autosave-dir)
+(setq auto-save-file-name-transforms `((".*" ,autosave-dir t)))
+
+(setq version-control t     ;; Use version numbers for backups.
+      kept-new-versions 10  ;; Number of newest versions to keep.
+      kept-old-versions 0   ;; Number of oldest versions to keep.
+      delete-old-versions t ;; Don't ask to delete excess backup versions.
+      backup-by-copying t)  ;; Copy all files, don't rename them.
+
+(setq vc-make-backup-files t)
+
+;; no lockfiles (.#files)
+(setq create-lockfiles nil)
 
 (setq initial-scratch-message "Welcome, Sam. Let's get to work.")
 
@@ -64,5 +76,5 @@
 
 (server-start)
 
-;; init.el done here
 (provide 'init)
+;;; init.el ends here
