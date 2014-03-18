@@ -17,3 +17,5 @@ backups/
 savehist
 abbrev_defs
 vendor/
+tramp
+eshell/
