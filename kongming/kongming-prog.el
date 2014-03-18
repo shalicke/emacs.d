@@ -5,9 +5,14 @@
 
 ;; enable flycheck.
 (require 'flycheck)
+(require 'flycheck-cask)
+(eval-after-load 'flycheck
+  '(add-hook 'flycheck-mode-hook 'flycheck-cask-setup))
 (require 'flycheck-tip)
 
-
+(setq flycheck-tip-avoid-show-func t
+      flycheck-display-errors-function
+      'flycheck-tip-display-current-line-error-message)
 
 ;; smart things from prelude
 ;; added NOTE.
@@ -42,41 +47,79 @@
   (set (make-local-variable 'comment-auto-fill-only-comments) t)
   (auto-fill-mode 1))
 
+;; TODO: enable better SP configuration.
+;; TODO: remove the ' pair only for lispy modes
 (defun kongming-sp-config-and-enable ()
   "Configure and load smartparens."
   (eval-after-load 'smartparens
-    '(progn (sp-pair "'" nil :actions :rem)
-            (smartparens-strict-mode 1))))
+    (smartparens-strict-mode 1)
+    (sp-local-pair 'emacs-lisp-mode "'" nil :actions nil)
+    (sp-local-pair 'sh-mode "'" nil :actions nil)
+    (sp-local-pair 'sh-mode "\"" nil :actions nil)))
 
 ;; the full monty.
 (defun kongming-prog-mode-hook ()
-  "Functions added to the prog-mode-hook by Vizier."
-  ;; TODO: enable better SP configuration.
+  "Functions added to the `prog-mode-hook'."
   (kongming-sp-config-and-enable)
   (subword-mode 1)
   (prelude-font-lock-comment-annotations)
   (rainbow-delimiters-mode 1)
   (kongming-auto-fill-comments-only)
   (kongming-flycheck-config-and-enable)
+  (company-mode-on)
+  (projectile-mode)
+  (eldoc-mode)
   (set-return-to-indent))
 
 ;; TODO: eventually, put in the smart indirection from prelude
 (add-hook 'prog-mode-hook 'kongming-prog-mode-hook)
 
-;; always enable projectile
-;;(add-hook 'prog-mode-hook 'projectile-on)
 
 ;; different mode configuration files
-(add-to-list 'load-path (concat base-dir "kongming/modes/"))
+(add-to-list 'load-path (concat kongming:base-dir "kongming/modes/"))
 
 ;; adoc-mode / bloggy mode
 (require 'kongming-adoc)
 
 ;; clojure
 (require 'kongming-clojure)
+(add-hook 'cider-mode-hook (lambda ()
+                          (set (make-local-variable 'company-backends) '(company-cider))
+                          (company-mode)))
+
+;; python -- just elpy no separate mode
+(elpy-enable)
+;;(elpy-use-ipython)
+(elpy-clean-modeline)
+
+(require 'virtualenvwrapper)
+(venv-initialize-interactive-shells) ;; if you want interactive shell support
+(venv-initialize-eshell) ;; if you want eshell support
+(setq venv-location "~/.python-virtualenvs/")
+
+(require 'mmm-auto)
+(setq mmm-global-mode 'maybe)
+
+;; for mako templating
+(add-to-list 'auto-mode-alist '("\\.tmpl\\'" . html-mode))
+(mmm-add-mode-ext-class 'html-mode "\\.tmpl\\" 'mako)
 
 ;; erlang
-;(require 'kongming-erlang)
+;; (require 'kongming-erlang)
+
+
+;; go
+(require 'go-mode-load)
+(require 'company-go)
+
+(add-hook 'before-save-hook 'gofmt-before-save)
+(setenv "GOPATH" "/Users/shalicke/hacking/go")
+
+;; (add-hook 'go-mode-hook (lambda () (setenv "GOPATH" (make-local-variable 'go-directory "~/hacking/go"))))
+
+(add-hook 'go-mode-hook (lambda ()
+                          (set (make-local-variable 'company-backends) '(company-go))
+                          (company-mode)))
 
 ;; ocaml
 ;;(require 'kongming-ocaml)
