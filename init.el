@@ -10,11 +10,10 @@
 
 ;; init.el
 
-;; use Cask and Pallet to manage packages.
+;; use Cask to manage packages.
 
 (require 'cask "~/.cask/cask.el")
 (cask-initialize)
-;;(require 'pallet)
 
 ;; -- directory and load-path stuff --
 ;; this is all that goes in 'init'. Keep paths, packages, and file locations

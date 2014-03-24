@@ -34,11 +34,16 @@
 
 
 (global-set-key (kbd "C-M--") 'text-scale-decrease)
-(global-set-key (kbd "C-M-+") 'text-scale-increas)
+(global-set-key (kbd "C-M-+") 'text-scale-increase)
 
-(global-set-key (kbd "C-f f") 'ace-jump-mode)
-(global-set-key (kbd "C-f /") 'isearch-forward-regexp)
-(global-set-key (kbd "C-f ?") 'isearch-backward-regexp)
+
+(defvar kongming:find-keymap nil)
+(define-prefix-command 'kongming:find-keymap)
+(global-set-key (kbd "C-x C-f") 'kongming:find-keymap)
+
+(global-set-key (kbd "f") 'ace-jump-mode)
+(global-set-key (kbd "/") 'isearch-forward-regexp)
+(global-set-key (kbd "?") 'isearch-backward-regexp)
 
 ;; find regexp in files matching current buffer's major mode (see
 ;; functions.el)
